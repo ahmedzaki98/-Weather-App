@@ -1,20 +1,21 @@
 /* Global Variables */
-const apiKey = '&appid=9e26d3f2109529f57c7ffc31ba097255';
+const apiKey = '&appid=9e26d3f2109529f57c7ffc31ba097255&units=imperial';
+
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 const generateButton = document.querySelector('#generate').addEventListener('click', () => {
     try {
         const newZIP = document.getElementById('zip').value;
-        const newContent = document.getElementById('feelings').value;
+        const content = document.getElementById('feelings').value;
         getWetherData(newZIP, apiKey)
-            .then(function (data) {
+            .then((data) => {
                 console.log(data);
                 postData('/newData', {
                     date: newDate,
                     temp: data.main.temp,
-                    content: newContent,
+                    content,
                 })
             }).then(() => update())
     } catch (error) {
